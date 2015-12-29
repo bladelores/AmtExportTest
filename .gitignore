@@ -5,4 +5,4 @@
 *.cache
 *.db
 *.exe
-AmtExportTest/src/packages
+AmtExportTest/packages
