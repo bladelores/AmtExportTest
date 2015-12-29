@@ -33,7 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
-      <HintPath>..\..\..\web-geo_new (.net 4)\src\Amt.Export\Modem.Amt.Export\bin\Debug\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.Oracle">
       <HintPath>..\packages\EntityFramework.Oracle.1.0.2\lib\net45\EntityFramework.Oracle.dll</HintPath>
@@ -43,6 +43,7 @@
       <HintPath>..\..\..\web-geo_new (.net 4)\src\Amt.Export\Modem.Amt.Export\bin\Debug\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
