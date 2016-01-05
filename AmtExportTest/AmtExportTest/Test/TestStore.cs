@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Modem.Amt.Export;
 using Modem.Amt.Export.Data;
 using NUnit.Framework;
 
-namespace Modem.Amt.Export
+namespace AmtExportTest.Test
 {
     [TestFixture]
     public class TestStore
