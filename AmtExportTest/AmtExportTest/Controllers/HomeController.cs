@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Modem.Amt.Export;
 using Modem.Amt.Export.Data;
 using Modem.Amt.Export.Connections;
+using System.IO;
+using System.IO.Pipes;
 
 namespace AmtExportTest.Controllers
 {
@@ -22,8 +24,8 @@ namespace AmtExportTest.Controllers
         {
             Response.BufferOutput = false;
 
-            IRealtimeConnection testConnection;
-            testConnection = new TestConnection();
+            //IRealtimeConnection testConnection;
+            var testConnection = new TestConnection();
 
             using (var store = new Store())
             {
@@ -36,6 +38,12 @@ namespace AmtExportTest.Controllers
             if (endTime == null)
                 return Json(new { success = true });
             testConnection.ConfigureConnection(wellboreId, parameters);
+
+            testConnection.PipeClient =
+                       new NamedPipeClientStream(".", "TestConnectionPipe",
+                           PipeDirection.InOut, PipeOptions.Asynchronous);
+            testConnection.PipeClient.Connect();
+
             while (true)
             {
                 var newData = await testConnection.GetNewData();
@@ -44,7 +52,9 @@ namespace AmtExportTest.Controllers
                 Response.Write(newData);
                 Response.Flush();
             }
+            
             Response.End();
+            testConnection.PipeClient.Close();
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 

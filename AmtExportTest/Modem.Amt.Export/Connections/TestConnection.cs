@@ -5,11 +5,16 @@ using System.Text;
 using System.Threading.Tasks;
 using Modem.Amt.Export;
 using Modem.Amt.Export.Data;
+using Modem.Amt.Export.Utility;
+using System.IO;
+using System.IO.Pipes;
+
 
 namespace Modem.Amt.Export.Connections
 {
     public class TestConnection: IRealtimeConnection
     {
+        public NamedPipeClientStream PipeClient { get; set; }
         private long wellboreId;
         private List<Parameter> parameters;
 
@@ -20,21 +25,17 @@ namespace Modem.Amt.Export.Connections
         
         public async System.Threading.Tasks.Task<decimal[]> GetNewData()
         {
-            var random = new Random();
-            var randomData = await Task<decimal[]>.Run(() =>
-            {                
-                var randomArray = new decimal[5];
-                for (int i = 0; i < 5; i++) randomArray[i] = random.Next(0, 100);
-                return randomArray;
+            var data = await Task<decimal[]>.Run(() =>
+            {
+                StreamString reader = new StreamString(PipeClient);
+                var s = reader.ReadString();
+                if (s.Equals("end")) return null;
+                List<string> parsedNumbers = s.Split(' ').ToList();
+                List<decimal> numbers = parsedNumbers.Select(x => Decimal.Parse(x)).ToList();
+                return numbers.ToArray();
             });
             Task.WaitAll();
-
-            //var amtData = new AmtData();
-            //amtData.Data.Add(randomData);
-            if (random.Next(0, 10) == 9)
-                return null;
-            else
-                return randomData;
+            return data;
         }
     }
 }
