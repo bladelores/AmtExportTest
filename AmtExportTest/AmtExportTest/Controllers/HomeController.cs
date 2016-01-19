@@ -25,7 +25,7 @@ namespace AmtExportTest.Controllers
             Response.BufferOutput = false;
 
             //IRealtimeConnection testConnection;
-            var testConnection = new TestConnection();
+            var pipeConnection = new PipeConnection();
 
             using (var store = new Store())
             {
@@ -37,16 +37,16 @@ namespace AmtExportTest.Controllers
 
             if (endTime == null)
                 return Json(new { success = true });
-            testConnection.ConfigureConnection(wellboreId, parameters);
+            pipeConnection.ConfigureConnection(wellboreId, parameters);
 
-            testConnection.PipeClient =
-                       new NamedPipeClientStream(".", "TestConnectionPipe",
+            pipeConnection.PipeClient =
+                       new NamedPipeClientStream(".", "PipeConnection",
                            PipeDirection.InOut, PipeOptions.Asynchronous);
-            testConnection.PipeClient.Connect();
+            pipeConnection.PipeClient.Connect();
 
             while (true)
             {
-                var newData = await testConnection.GetNewData();
+                var newData = await pipeConnection.GetNewData();
                 if (newData == null) break;
 
                 Response.Write(newData);
@@ -54,7 +54,7 @@ namespace AmtExportTest.Controllers
             }
             
             Response.End();
-            testConnection.PipeClient.Close();
+            pipeConnection.PipeClient.Close();
             return Json(new { success = true }, JsonRequestBehavior.AllowGet);
         }
 

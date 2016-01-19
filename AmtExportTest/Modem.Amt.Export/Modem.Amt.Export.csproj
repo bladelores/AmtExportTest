@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connections\IRealtimeConnection.cs" />
+    <Compile Include="Connections\PipeConnection.cs" />
     <Compile Include="Connections\TestConnection.cs" />
     <Compile Include="DataProcess.cs" />
     <Compile Include="Data\BaseMappings.cs" />

@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FE40C0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Modem.Amt.Export", "Modem.Amt.Export\Modem.Amt.Export.csproj", "{1626AA2A-6834-4AA7-83B5-CCED0CD2797C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConnectionPipeServer", "TestConnectionPipeServer\TestConnectionPipeServer.csproj", "{158DCDC1-4F20-48B7-A538-122AADE0F470}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipeConnectionServer", "TestConnectionPipeServer\PipeConnectionServer.csproj", "{158DCDC1-4F20-48B7-A538-122AADE0F470}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
